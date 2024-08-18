@@ -1,22 +1,20 @@
-import { UniqueEntityID } from "./unique-entity-id"
+import { UniqueEntityID } from './unique-entity-id'
 
-
-export class Entity<Props>{
-  private  _id: UniqueEntityID
-  protected createdAt: Date 
-  protected updatedAt?: Date 
-  protected props: any 
+export class Entity<Props> {
+  private _id: UniqueEntityID
+  protected createdAt: Date
+  protected updatedAt?: Date
+  protected props: Props
 
   get id() {
     return this._id
   }
 
-  protected touch(){
-    this.props.updatedAt = new Date()
+  protected touch() {
+    this.updatedAt = new Date()
   }
 
-  constructor(props:any, id?:UniqueEntityID ) {
-    
+  constructor(props: Props, id?: UniqueEntityID) {
     this.props = props
     this.createdAt = new Date()
     this._id = id ?? new UniqueEntityID()

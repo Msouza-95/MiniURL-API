@@ -1,38 +1,49 @@
-import { ConflictException } from "@nestjs/common";
-import { Body, Controller, HttpCode, Post } from "@nestjs/common";
-import { response } from "express";
-import { PrismaService } from "src/prisma/prisma.service";
+import { PrismaService } from '@/prisma/prisma.service'
+import {
+  ConflictException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+} from '@nestjs/common'
 
-import { hash} from  'bcryptjs'
+import { hash } from 'bcryptjs'
+
+interface IRequest {
+  name: string
+  email: string
+  password: string
+}
 
 @Controller('users/accounts')
-export class CreateAccountController{
-
-  constructor( private prisma: PrismaService){}
+export class CreateAccountController {
+  constructor(private prisma: PrismaService) {}
 
   @Post()
   @HttpCode(201)
-  async handle(@Body() body:any) {
-    const { name, email, password }= body
+  async handle(@Body() body: IRequest) {
+    const { name, email, password } = body
 
     const emailExists = await this.prisma.user.findUnique({
       where: {
-        email
-      }
+        email,
+      },
     })
 
-    if(emailExists) {
-      throw new ConflictException('User with same e-mail address already exists')
+    if (emailExists) {
+      throw new ConflictException(
+        'User with same e-mail address already exists',
+      )
     }
 
-    const hashPassword= await hash(password,8)
+    const hashPassword = await hash(password, 8)
 
     const response = await this.prisma.user.create({
       data: {
         name,
         email,
-        password: hashPassword
-      }
+        password: hashPassword,
+      },
     })
 
     return response
