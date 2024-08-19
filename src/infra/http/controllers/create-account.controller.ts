@@ -1,12 +1,16 @@
 import { CreateAccountUseCase } from '@/domain/user/application/use-cases/create-account'
-import { Body, Controller, HttpCode, Post } from '@nestjs/common'
+import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
 import { ViewUserMapper } from '../mappers/view-user-mapper'
+import { z } from 'zod'
+import { ZodValidationPipe } from '../pipes/zod-validation.-pipe'
 
-interface IRequest {
-  name: string
-  email: string
-  password: string
-}
+const createAccountBody = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  password: z.string().min(8),
+})
+
+type CreateAccountBody = z.infer<typeof createAccountBody>
 
 @Controller('users/accounts')
 export class CreateAccountController {
@@ -14,7 +18,8 @@ export class CreateAccountController {
 
   @Post()
   @HttpCode(201)
-  async handle(@Body() body: IRequest) {
+  @UsePipes(new ZodValidationPipe(createAccountBody))
+  async handle(@Body() body: CreateAccountBody) {
     const { name, email, password } = body
 
     const newUser = await this.createAccountUseCase.execute({
