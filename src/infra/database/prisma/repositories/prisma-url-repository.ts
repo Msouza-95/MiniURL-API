@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { UrlRepository } from '@/domain/url/application/repositories/url-repository'
 import { Url } from '@/domain/url/enterprise/entities/url'
-import { PrismaUrlMapper } from '../mappers/prisma-url-mapper copy'
+import { PrismaUrlMapper } from '../mappers/prisma-url-mapper'
 
 @Injectable()
 export class PrismaUrlRepository implements UrlRepository {

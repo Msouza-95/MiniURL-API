@@ -11,7 +11,7 @@ export class PrismaUrlMapper {
         originalUrl: raw.original_url,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
-        userId: new UniqueEntityID(raw.userId),
+        userId: raw.userId ? new UniqueEntityID(raw.userId) : undefined,
       },
       new UniqueEntityID(raw.id),
     )
@@ -21,11 +21,11 @@ export class PrismaUrlMapper {
     return {
       id: url.id.toString(),
       click_count: url.clickCount,
-      mini_url: url.miniUrl,
+      mini_url: url.miniUrl!,
       original_url: url.originalUrl,
       createdAt: url.createdAt,
       updatedAt: url.updatedAt,
-      userId: url.userId?.toString(),
+      userId: url.userId ? url.userId.toString() : null,
     }
   }
 }
