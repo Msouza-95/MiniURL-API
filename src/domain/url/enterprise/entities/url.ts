@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { PreconditionFailedException } from '@nestjs/common'
 import { Entity } from 'src/core/entities/entity'
 
 interface IUrlProps {
@@ -21,8 +22,26 @@ export class Url extends Entity<IUrlProps> {
     return this.props.miniUrl
   }
 
+  set miniUrl(mini: string) {
+    if (mini.length > 6) {
+      throw new PreconditionFailedException(
+        'the mini url must be less than 6 characters',
+      )
+    }
+
+    this.props.miniUrl = 'http://localhost/' + mini
+    this.touch()
+  }
+
   get originalUrl() {
     return this.props.originalUrl
+  }
+
+  set originalUrl(originalUr: string) {
+    if (originalUr !== this.originalUrl) {
+      this.props.originalUrl = originalUr
+      this.touch()
+    }
   }
 
   get createdAt() {
