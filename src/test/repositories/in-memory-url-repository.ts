@@ -21,7 +21,7 @@ export class InMemoryUrlRepository implements UrlRepository {
   }
 
   async findByMiniUrl(miniUrl: string): Promise<Url | null> {
-    const url = this.urls.find((item) => item.miniUrl.toString() === miniUrl)
+    const url = this.urls.find((item) => item.miniUrl!.toString() === miniUrl)
 
     if (!url) {
       return null

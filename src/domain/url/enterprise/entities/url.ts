@@ -6,9 +6,9 @@ import { randomBytes } from 'crypto'
 
 interface IUrlProps {
   originalUrl: string
-  miniUrl: string
+  miniUrl?: string
   clickCount: number
-  userId: UniqueEntityID | null
+  userId?: UniqueEntityID
   createdAt: Date
   updatedAt?: Date | null
   deletedAt?: Date | null
@@ -19,7 +19,7 @@ export class Url extends Entity<IUrlProps> {
     return this.props.clickCount
   }
 
-  get miniUrl() {
+  get miniUrl(): string | undefined {
     return this.props.miniUrl
   }
 
@@ -31,16 +31,15 @@ export class Url extends Entity<IUrlProps> {
     }
 
     this.props.miniUrl = 'http://localhost/' + mini
-    this.touch()
   }
 
   get originalUrl() {
     return this.props.originalUrl
   }
 
-  set originalUrl(originalUr: string) {
-    if (originalUr !== this.originalUrl) {
-      this.props.originalUrl = originalUr
+  set originalUrl(originalUrl: string) {
+    if (originalUrl !== this.originalUrl) {
+      this.props.originalUrl = originalUrl
       this.touch()
     }
   }
@@ -49,8 +48,12 @@ export class Url extends Entity<IUrlProps> {
     return this.props.createdAt
   }
 
-  get userId() {
+  get userId(): UniqueEntityID | undefined {
     return this.props.userId
+  }
+
+  set userId(id: UniqueEntityID) {
+    this.props.userId = id
   }
 
   get updatedAt() {
@@ -83,10 +86,12 @@ export class Url extends Entity<IUrlProps> {
     const length = Math.floor(Math.random() * 3) + 4 // gerar numero aléatorio entre 4 e 6
 
     const bytes = randomBytes(length)
-
+    let newMiniUrl: string = ''
     for (let i = 0; i < length; i++) {
-      this.miniUrl += chars[bytes[i] % chars.length]
+      newMiniUrl += chars[bytes[i] % chars.length]
     }
+
+    this.miniUrl = newMiniUrl
   }
 
   private touch() {
@@ -100,9 +105,8 @@ export class Url extends Entity<IUrlProps> {
     const url = new Url(
       {
         ...props,
-        clickCount: 0,
         createdAt: props.createdAt ?? new Date(),
-        deletedAt: props.deletedAt ?? new Date(),
+        deletedAt: props.deletedAt ?? null,
       },
       id,
     )
