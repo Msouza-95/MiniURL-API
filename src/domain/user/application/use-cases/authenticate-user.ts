@@ -27,7 +27,7 @@ export class AuthenticateUseCase {
     password,
   }: IAuthenticateRequest): Promise<IAuthenticateResponse> {
     const user = await this.userRepository.findByEmail(email)
-
+    console.log(user)
     if (!user) {
       throw new UnauthorizedException('User credentials do not match')
     }

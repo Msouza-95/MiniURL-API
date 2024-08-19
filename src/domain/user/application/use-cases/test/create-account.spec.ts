@@ -25,4 +25,17 @@ describe('Create account user', () => {
     })
     expect(result.id).toBeDefined() // Verific
   })
+
+  it('should not allow creation of user with duplicate email', async () => {
+    const newUser = {
+      name: 'Matheus',
+      email: 'teste@gmail.com',
+      password: '12345678',
+    }
+    await sut.execute(newUser)
+
+    await expect(sut.execute(newUser)).rejects.toThrow(
+      'User with same e-mail address already exists',
+    )
+  })
 })
