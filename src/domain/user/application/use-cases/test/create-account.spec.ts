@@ -1,5 +1,5 @@
 import { InMemoryUserRepository } from '@/test/repositories/in-memory-user-repository'
-import { CreateAccountUseCase } from '../use-cases/create-account'
+import { CreateAccountUseCase } from '../create-account'
 
 let inMemoryUserRepository: InMemoryUserRepository
 
