@@ -1,35 +1,37 @@
-import { User } from '@/domain/user/enterprise/entities/user'
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
-import { PrismaUserMapper } from '../mappers/prisma-user-mapper'
-import { UserRepository } from '@/domain/user/application/repositories/user-repository'
+import { UrlRepository } from '@/domain/url/application/repositories/url-repository'
+import { Url } from '@/domain/url/enterprise/entities/url'
+import { PrismaUrlMapper } from '../mappers/prisma-url-mapper copy'
 
 @Injectable()
-export class PrismaUrlRepository implements UserRepository {
+export class PrismaUrlRepository implements UrlRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(user: User): Promise<User> {
-    const data = PrismaUserMapper.toPrisma(user)
+  async create(url: Url): Promise<Url> {
+    const data = PrismaUrlMapper.toPrisma(url)
 
-    const newUser = await this.prisma.user.create({ data })
+    const newUrl = await this.prisma.url.create({ data })
 
-    return PrismaUserMapper.toDomain(newUser)
+    return PrismaUrlMapper.toDomain(newUrl)
   }
 
-  async findById(id: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({ where: { id } })
+  async findById(id: string): Promise<Url | null> {
+    const url = await this.prisma.url.findUnique({ where: { id } })
 
-    if (!user) {
+    if (!url) {
       return null
     }
-    return PrismaUserMapper.toDomain(user)
+    return PrismaUrlMapper.toDomain(url)
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const user = await this.prisma.user.findUnique({ where: { email } })
-    if (!user) {
+  async findByMiniUrl(miniUrl: string): Promise<Url | null> {
+    const url = await this.prisma.url.findFirst({
+      where: { mini_url: miniUrl },
+    })
+    if (!url) {
       return null
     }
-    return PrismaUserMapper.toDomain(user)
+    return PrismaUrlMapper.toDomain(url)
   }
 }
