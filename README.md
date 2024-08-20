@@ -59,6 +59,22 @@ $ yarn run start:dev
 $ yarn test 
 ```
 
+## documentação 
+
+```bash
+$ http://localhost:3333/api-documentation
+```
+
+- Pontos de Melhoria para Escalabilidade Horizontal
+
+- Desacoplamento e Microserviços:
+ Dividir o sistema em microserviços pode facilitar a escalabilidade horizontal. Cada microserviço pode ser escalado independentemente conforme a demanda.
+ Implementação: Identificar os componentes principais (ex.: autenticação, encurtamento de URL, contagem de cliques) e transformá-los em serviços independentes.
+
+- Cache:
+ Introduzir cache para reduzir a carga no banco de dados e melhorar o tempo de resposta.
+ Implementação: Utilizar Redis ou Memcached para armazenar dados frequentemente acessados, como URLs encurtadas e suas contagens de cliques.
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
