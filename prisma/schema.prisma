@@ -21,6 +21,7 @@ model User {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   urls      Url[]
+  clicks    Click[]
 
   @@map("users")
 }
@@ -35,7 +36,21 @@ model Url {
   updatedAt    DateTime? @updatedAt @map("updated_at")
   deletedAt    DateTime? @map("deleted_at")
 
-  user User? @relation(fields: [userId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
+  clicks Click[]
 
   @@map("urls")
+}
+
+model Click {
+  id        String   @id @default(uuid())
+  urlId     String?  @map("url_id")
+  userId    String?  @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  url Url? @relation(fields: [urlId], references: [id])
+
+  @@map("Click")
 }

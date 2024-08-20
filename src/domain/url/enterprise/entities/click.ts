@@ -4,7 +4,8 @@ import { Entity } from 'src/core/entities/entity'
 
 interface IClickProps {
   urlId: UniqueEntityID
-  clickedAt: Date
+  userId: UniqueEntityID
+  createdAt: Date
 }
 
 export class Click extends Entity<IClickProps> {
@@ -12,18 +13,22 @@ export class Click extends Entity<IClickProps> {
     return this.props.urlId
   }
 
+  get userId() {
+    return this.props.userId
+  }
+
   get clickedAt() {
-    return this.props.clickedAt
+    return this.props.createdAt
   }
 
   static create(
-    props: Optional<IClickProps, 'clickedAt'>,
+    props: Optional<IClickProps, 'createdAt'>,
     id?: UniqueEntityID,
   ) {
     const click = new Click(
       {
         ...props,
-        clickedAt: props.clickedAt ?? new Date(),
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     )

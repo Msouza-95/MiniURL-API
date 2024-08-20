@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, Post, Req } from '@nestjs/common'
 import { Request } from 'express'
-import { string, z } from 'zod'
+import { z } from 'zod'
 import { CreateMiniUrlUseCase } from '@/domain/url/application/use-cases/create-mini-url'
 import { ViewUrlMapper } from '../mappers/view-url-mapper'
 import { Public } from '@/infra/auth/public'
