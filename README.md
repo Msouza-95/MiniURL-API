@@ -59,11 +59,12 @@ $ yarn run start:dev
 $ yarn test 
 ```
 
-## documentação 
+## documentação Swagger
 
 ```bash
 $ http://localhost:3333/api-documentation
 ```
+#### A documentação não ta 100% completa, portanto, coloquei uma pasta com arquivo insominia para facilitar o teste quando a documentação não atender.
 
 - Pontos de Melhoria para Escalabilidade Horizontal
 
