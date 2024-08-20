@@ -32,4 +32,14 @@ export class InMemoryClickRepository implements ClickRepository {
 
     return this.clicks[index]
   }
+
+  async historyClicks(userId: string): Promise<unknown> {
+    const click = this.clicks.find((item) => item.userId?.toString() === userId)
+
+    if (!click) {
+      return null
+    }
+
+    return click
+  }
 }

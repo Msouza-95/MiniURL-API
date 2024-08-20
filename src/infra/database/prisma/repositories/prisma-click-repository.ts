@@ -33,4 +33,17 @@ export class PrismaClickRepository implements ClickRepository {
 
     return PrismaCLickMapper.toDomain(result)
   }
+
+  async historyClicks(userId: string): Promise<unknown> {
+    const clicks = await this.prisma.click.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        url: true, // Inclui os dados da URL associada
+      },
+    })
+
+    return clicks
+  }
 }

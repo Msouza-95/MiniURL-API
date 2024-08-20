@@ -18,6 +18,8 @@ import { AccessMiniUrlController } from './controllers/access-mini-url.controlle
 import { AccessMiniUrlUseCase } from '@/domain/url/application/use-cases/access-mini-url'
 import { ListUrlWithoutUserController } from './controllers/list-url-wthout-user.controller'
 import { ListUrlWithoutUserUseCase } from '@/domain/url/application/use-cases/list-url-without-user'
+import { HistoryClickUrlUserController } from './controllers/history-click-url-user.controller'
+import { HistoryClickUrlUseUseCase } from '@/domain/url/application/use-cases/history-click-url-user'
 
 @Module({
   imports: [DatabaseModule],
@@ -30,6 +32,7 @@ import { ListUrlWithoutUserUseCase } from '@/domain/url/application/use-cases/li
     UpdateOriginalUrlByUserController,
     AccessMiniUrlController,
     ListUrlWithoutUserController,
+    HistoryClickUrlUserController,
   ],
   providers: [
     CreateAccountUseCase,
@@ -41,6 +44,7 @@ import { ListUrlWithoutUserUseCase } from '@/domain/url/application/use-cases/li
     UpdateOriginalUrlByUserUseCase,
     AccessMiniUrlUseCase,
     ListUrlWithoutUserUseCase,
+    HistoryClickUrlUseUseCase,
   ],
 })
 export class HttpModule {}
