@@ -11,7 +11,7 @@ export class DeleteUrlByUserController {
   constructor(private deleteUrlByUser: DeleteUrlByUserUseCase) {}
 
   @Delete()
-  @HttpCode(200)
+  @HttpCode(204)
   async handle(
     @CurrentUser() currentUser: UserPayload,
     @Param('id') urlId: string,

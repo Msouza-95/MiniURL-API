@@ -26,10 +26,13 @@ export class UpdateOriginalUrlByUserUseCase {
     if (!user) {
       throw new NotFoundException('User id not Found')
     }
+
     const url = await this.urlRepository.findByUserIdAndId({
       urlId,
       userId,
     })
+
+    console.log(url)
 
     if (!url) {
       throw new NotFoundException('URL ID for the user not found')

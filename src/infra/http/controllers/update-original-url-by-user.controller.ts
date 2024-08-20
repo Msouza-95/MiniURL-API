@@ -1,16 +1,18 @@
 import { Body, Controller, HttpCode, Patch, UsePipes } from '@nestjs/common'
 
 import { z } from 'zod'
-import { ZodValidationPipe } from '../pipes/zod-validation.-pipe'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { UpdateOriginalUrlByUserUseCase } from '@/domain/url/application/use-cases/update-origin-url-by-user'
 import { ViewUrlMapper } from '../mappers/view-url-mapper'
+import { ZodValidationPipe } from '../pipes/zod-validation.-pipe'
 
 const updateOriginalUrlBody = z.object({
-  originalUrl: z.string().uuid(),
+  originalUrl: z.string().url(),
   urlId: z.string().uuid(),
 })
+
+const bodyValidationPipe = new ZodValidationPipe(updateOriginalUrlBody)
 
 type UpdateOriginalUrlBody = z.infer<typeof updateOriginalUrlBody>
 
@@ -22,9 +24,9 @@ export class UpdateOriginalUrlByUserController {
 
   @Patch()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(updateOriginalUrlBody))
+  @UsePipes()
   async handle(
-    @Body() body: UpdateOriginalUrlBody,
+    @Body(bodyValidationPipe) body: UpdateOriginalUrlBody,
     @CurrentUser() currentUser: UserPayload,
   ) {
     const { originalUrl, urlId } = body
