@@ -6,6 +6,7 @@ import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { UpdateOriginalUrlByUserUseCase } from '@/domain/url/application/use-cases/update-origin-url-by-user'
 import { ViewUrlMapper } from '../mappers/view-url-mapper'
 import { ZodValidationPipe } from '../pipes/zod-validation.-pipe'
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 
 const updateOriginalUrlBody = z.object({
   originalUrl: z.string().url(),
@@ -16,6 +17,7 @@ const bodyValidationPipe = new ZodValidationPipe(updateOriginalUrlBody)
 
 type UpdateOriginalUrlBody = z.infer<typeof updateOriginalUrlBody>
 
+@ApiTags('Users')
 @Controller('users/url')
 export class UpdateOriginalUrlByUserController {
   constructor(
@@ -25,6 +27,12 @@ export class UpdateOriginalUrlByUserController {
   @Patch()
   @HttpCode(201)
   @UsePipes()
+  @ApiOperation({
+    summary: 'Atualizar uma URL original do usuário',
+    description:
+      'tualiza os dados de uma URL encurtada do usuário, a URL original.',
+  })
+  @ApiBearerAuth('access-token')
   async handle(
     @Body(bodyValidationPipe) body: UpdateOriginalUrlBody,
     @CurrentUser() currentUser: UserPayload,

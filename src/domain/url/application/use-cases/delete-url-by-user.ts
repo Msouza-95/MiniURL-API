@@ -22,7 +22,11 @@ export class DeleteUrlByUserUseCase {
       throw new NotFoundException('User id not Found')
     }
 
+    console.log(urlId)
+
     const url = await this.urlRepository.findByUserIdAndId({ userId, urlId })
+
+    console.log(url)
 
     if (!url) {
       throw new NotFoundException('URL ID for the user not found')

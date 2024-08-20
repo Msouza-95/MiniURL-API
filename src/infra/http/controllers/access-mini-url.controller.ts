@@ -13,7 +13,9 @@ import { AccessMiniUrlUseCase } from '@/domain/url/application/use-cases/access-
 import { Request } from 'express'
 import * as jwt from 'jsonwebtoken'
 import { EnvService } from '@/infra/env/env.service'
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger'
 
+@ApiTags('URLs')
 @Public()
 @Controller('url/access')
 export class AccessMiniUrlController {
@@ -26,6 +28,13 @@ export class AccessMiniUrlController {
   @HttpCode(200)
   @UsePipes()
   @Redirect()
+  @ApiOperation({
+    summary:
+      'Redirecionar para a URL original. Essa rota deve ser testado pelo Insomnia ou similar, pois na documentação não vai ter o efeito esperado',
+    description:
+      'Acessa a URL original usando uma URL encurtada, redirecionando o usuário para o destino original, tantos os user autenticados quantos os sem..',
+  })
+  @ApiBearerAuth('access-token')
   async handle(@Query('url') url: string, @Req() request: Request) {
     const { authorization } = request.headers
 

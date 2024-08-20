@@ -44,6 +44,8 @@ export class PrismaUrlRepository implements UrlRepository {
       },
     })
 
+    console.log(urls)
+
     return urls.map(PrismaUrlMapper.toDomain)
   }
 

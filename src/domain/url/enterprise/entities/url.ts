@@ -73,10 +73,6 @@ export class Url extends Entity<IUrlProps> {
   }
 
   logicalDelete() {
-    if (this.deletedAt) {
-      throw new ConflictException('URL already deleted')
-    }
-
     this.props.deletedAt = new Date()
 
     this.touch()
