@@ -6,8 +6,10 @@ export abstract class UrlRepository {
   abstract findById(id: string): Promise<Url | null>
   abstract findByMiniUrl(miniUrl: string): Promise<Url | null>
   abstract findByUserId(userId: string): Promise<Url[]>
-  abstract deleteByUserIdLogic({
+  abstract findByUserIdAndId({
     userId,
     urlId,
-  }: IUrlAndUserDto): Promise<void | Url>
+  }: IUrlAndUserDto): Promise<Url | null>
+
+  abstract save(url: Url): Promise<Url>
 }

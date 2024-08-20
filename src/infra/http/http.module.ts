@@ -12,6 +12,8 @@ import { ListUrlByUserController } from './controllers/list-url-by-user.controll
 import { ListUrlByUserUseCase } from '@/domain/url/application/use-cases/list-url-by-user'
 import { DeleteUrlByUserUseCase } from '@/domain/url/application/use-cases/delete-url-by-user'
 import { DeleteUrlByUserController } from './controllers/delete-url-by-user.controller'
+import { UpdateOriginalUrlByUserUseCase } from '@/domain/url/application/use-cases/update-origin-url-by-user'
+import { UpdateOriginalUrlByUserController } from './controllers/update-original-url-by-user.controller'
 
 @Module({
   imports: [DatabaseModule],
@@ -21,6 +23,7 @@ import { DeleteUrlByUserController } from './controllers/delete-url-by-user.cont
     AuthController,
     ListUrlByUserController,
     DeleteUrlByUserController,
+    UpdateOriginalUrlByUserController,
   ],
   providers: [
     CreateAccountUseCase,
@@ -29,6 +32,7 @@ import { DeleteUrlByUserController } from './controllers/delete-url-by-user.cont
     EnvService,
     ListUrlByUserUseCase,
     DeleteUrlByUserUseCase,
+    UpdateOriginalUrlByUserUseCase,
   ],
 })
 export class HttpModule {}

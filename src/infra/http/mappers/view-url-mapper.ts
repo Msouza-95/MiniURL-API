@@ -33,7 +33,7 @@ export class ViewUrlMapper {
     }
   }
 
-  static toArraUrlView(url: Url) {
+  static toUnicUrlView(url: Url) {
     return {
       id: url.id.toString(),
       click_total: url.clickCount,

@@ -21,6 +21,6 @@ export class DeleteUrlByUserController {
       urlId,
     })
 
-    return ViewUrlMapper.toArraUrlView(url!)
+    return ViewUrlMapper.toUnicUrlView(url!)
   }
 }

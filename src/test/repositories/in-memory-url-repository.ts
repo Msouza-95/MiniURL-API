@@ -37,12 +37,31 @@ export class InMemoryUrlRepository implements UrlRepository {
     return urls
   }
 
-  async deleteByUserIdLogic({ userId, urlId }: IUrlAndUserDto): Promise<void> {
-    const newArray = this.urls.filter(
+  async findByUserIdAndId({
+    userId,
+    urlId,
+  }: IUrlAndUserDto): Promise<Url | null> {
+    const url = this.urls.find(
       (item) =>
-        item.userId?.toString() !== userId || item.id.toString() !== urlId,
+        item.id.toString() === urlId && item.userId?.toString() === userId,
+    )
+    if (!url) {
+      return null
+    }
+
+    return url
+  }
+
+  async save(url: Url): Promise<Url> {
+    const index = this.urls.findIndex(
+      (item) => item.id === url.id && item.userId === url.userId,
     )
 
-    this.urls = newArray
+    if (index !== -1) {
+      // Atualiza o objeto encontrado
+      this.urls[index] = url
+    }
+
+    return this.urls[index]
   }
 }

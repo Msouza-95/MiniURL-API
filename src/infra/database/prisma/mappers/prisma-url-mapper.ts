@@ -12,6 +12,7 @@ export class PrismaUrlMapper {
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
         userId: raw.userId ? new UniqueEntityID(raw.userId) : undefined,
+        deletedAt: raw.deletedAt,
       },
       new UniqueEntityID(raw.id),
     )
@@ -26,6 +27,7 @@ export class PrismaUrlMapper {
       createdAt: url.createdAt,
       updatedAt: url.updatedAt,
       userId: url.userId ? url.userId.toString() : null,
+      deletedAt: url.deletedAt,
     }
   }
 }

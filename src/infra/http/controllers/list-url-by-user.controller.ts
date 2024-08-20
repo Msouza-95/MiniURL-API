@@ -17,6 +17,6 @@ export class ListUrlByUserController {
       userId: currentUser.sub,
     })
 
-    return urls.map(ViewUrlMapper.toArraUrlView)
+    return urls.map(ViewUrlMapper.toUnicUrlView)
   }
 }

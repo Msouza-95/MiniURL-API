@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { UrlRepository } from '@/domain/url/application/repositories/url-repository'
 import { Url } from '@/domain/url/enterprise/entities/url'
@@ -47,19 +47,26 @@ export class PrismaUrlRepository implements UrlRepository {
     return urls.map(PrismaUrlMapper.toDomain)
   }
 
-  async deleteByUserIdLogic({ userId, urlId }: IUrlAndUserDto): Promise<Url> {
+  async save(url: Url): Promise<Url> {
+    const result = await this.prisma.url.update({
+      where: { id: url.id.toString() },
+      data: PrismaUrlMapper.toPrisma(url),
+    })
+
+    return PrismaUrlMapper.toDomain(result)
+  }
+
+  async findByUserIdAndId({
+    userId,
+    urlId,
+  }: IUrlAndUserDto): Promise<Url | null> {
     const url = await this.prisma.url.findFirst({
       where: { userId, id: urlId },
     })
 
     if (!url) {
-      throw new NotFoundException('Url id not Found')
+      return null
     }
-
-    url.updatedAt = new Date()
-    url.deletedAt = new Date()
-
-    await this.prisma.url.update({ where: { id: url.id }, data: url })
 
     return PrismaUrlMapper.toDomain(url)
   }

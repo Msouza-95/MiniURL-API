@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
-import { PreconditionFailedException } from '@nestjs/common'
+import { ConflictException, PreconditionFailedException } from '@nestjs/common'
 import { Entity } from 'src/core/entities/entity'
 import { randomBytes } from 'crypto'
 
@@ -60,12 +60,22 @@ export class Url extends Entity<IUrlProps> {
     return this.props.updatedAt
   }
 
-  get deletedAt() {
+  get deletedAt(): Date | undefined | null {
     return this.props.deletedAt
   }
 
-  private logicalDelete() {
+  set deletedAt(data: Date) {
+    this.props.deletedAt = data
+  }
+
+  logicalDelete() {
+    if (this.deletedAt) {
+      throw new ConflictException('URL already deleted')
+    }
+
     this.props.deletedAt = new Date()
+
+    this.touch()
   }
 
   createShortUrl() {
