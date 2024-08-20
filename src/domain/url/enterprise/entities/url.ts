@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
-import { ConflictException, PreconditionFailedException } from '@nestjs/common'
+import { PreconditionFailedException } from '@nestjs/common'
 import { Entity } from 'src/core/entities/entity'
 import { randomBytes } from 'crypto'
 

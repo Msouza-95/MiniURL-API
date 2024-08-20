@@ -22,14 +22,42 @@ Usuários autenticados podem listar, editar e excluir URLs encurtadas por eles.
 
 - Registro de Atualizações: Todos os registros mantêm informações sobre quando foram atualizados pela última vez.
 
-## Tecnologias 
+- Historico de click de um usuarios 
 
-- Node.js: O projeto é desenvolvido utilizando a última versão estável do Node.js.
+## Baixar depedencias
 
-- API REST: O sistema é estruturado como uma API RESTful.
+```bash
+$ yarn install
+```
 
-- Banco de Dados
+## gerar banco de dados com docker
 
+```bash
+$ docker-compose up
+```
+
+## Gerar as migrations
+
+```bash
+# sicronizar 
+$ migration:dev
+
+# gerar a migration
+$ migration:run
+```
+
+## Rodar a API
+
+```bash
+$ yarn run start:dev
+```
+
+## Test
+
+```bash
+# unit tests
+$ yarn test 
+```
 
 ## License
 
