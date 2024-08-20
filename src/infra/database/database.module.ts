@@ -8,8 +8,14 @@ import { PrismaUrlRepository } from './prisma/repositories/prisma-url-repository
 @Module({
   providers: [
     PrismaService,
-    { provide: UserRepository, useClass: PrismaUserRepository },
-    { provide: UrlRepository, useClass: PrismaUrlRepository },
+    {
+      provide: UserRepository,
+      useClass: PrismaUserRepository,
+    },
+    {
+      provide: UrlRepository,
+      useClass: PrismaUrlRepository,
+    },
   ],
 
   exports: [PrismaService, UserRepository, UrlRepository],

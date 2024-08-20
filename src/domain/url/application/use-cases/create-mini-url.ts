@@ -25,7 +25,6 @@ export class CreateMiniUrlUseCase {
     url,
     userId,
   }: ICreateMiniUrlRequest): Promise<ICreateMiniUrlResponse> {
-    console.log('estou no usecase')
     const newUrl = Url.create({ originalUrl: url, clickCount: 0 })
 
     let isUnique = false

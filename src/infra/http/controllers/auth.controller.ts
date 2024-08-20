@@ -4,6 +4,7 @@ import { Body, Controller, Post, UsePipes } from '@nestjs/common'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation.-pipe'
 import { AuthenticateUseCase } from '@/domain/user/application/use-cases/authenticate-user'
 import { ViewAuthMapper } from '../mappers/view-auth-mapper'
+import { Public } from '@/infra/auth/public'
 
 const authenticateBody = z.object({
   email: z.string().email(),
@@ -13,6 +14,7 @@ const authenticateBody = z.object({
 type AuthenticateBody = z.infer<typeof authenticateBody>
 
 @Controller('/users/sessions')
+@Public()
 export class AuthController {
   constructor(
     private readonly createauthenticateUseCase: AuthenticateUseCase,

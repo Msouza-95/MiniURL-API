@@ -1,24 +1,19 @@
-import { config } from 'dotenv'
+import { EnvService } from '@/infra/env/env.service'
+import { Injectable } from '@nestjs/common'
+import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { z } from 'zod'
 
-import { Injectable } from '@nestjs/common'
-import { PassportStrategy } from '@nestjs/passport'
-
-const userPayload = z.object({
+const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
 })
 
-export type UserPayload = z.infer<typeof userPayload>
+export type UserPayload = z.infer<typeof tokenPayloadSchema>
 
-config()
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
-    const publicKey = process.env.JWT_PUBLIC_KEY
-    if (!publicKey) {
-      throw new Error('JWT_PUBLIC_KEY must be defined')
-    }
+  constructor(config: EnvService) {
+    const publicKey = config.get('JWT_PUBLIC_KEY')
 
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -28,6 +23,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: UserPayload) {
-    return userPayload.parse(payload)
+    return tokenPayloadSchema.parse(payload)
   }
 }

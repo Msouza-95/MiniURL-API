@@ -2,8 +2,9 @@ import { CreateAccountUseCase } from '@/domain/user/application/use-cases/create
 import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
 
 import { z } from 'zod'
-import { ZodValidationPipe } from '../../pipes/zod-validation.-pipe'
-import { ViewUserMapper } from '../../mappers/view-user-mapper'
+import { ZodValidationPipe } from '../pipes/zod-validation.-pipe'
+import { ViewUserMapper } from '../mappers/view-user-mapper'
+import { Public } from '@/infra/auth/public'
 
 const createAccountBody = z.object({
   name: z.string(),
@@ -13,6 +14,7 @@ const createAccountBody = z.object({
 
 type CreateAccountBody = z.infer<typeof createAccountBody>
 
+@Public()
 @Controller('users/accounts')
 export class CreateAccountController {
   constructor(private createAccountUseCase: CreateAccountUseCase) {}

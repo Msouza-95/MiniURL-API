@@ -10,14 +10,26 @@ export class ViewUrlMapper {
       updated_at: url.updatedAt,
       mini_url: url.miniUrl,
       orignal_url: url.originalUrl,
-      user,
+      user: {
+        id: user?.id.toString(),
+        name: user?.name,
+        email: user?.email,
+        created_at: user?.createdAt,
+        update_at: user?.updatedAt,
+      },
     }
   }
 
   static toMiniUrlView(url?: string, user?: User) {
     return {
       mini_url: url,
-      user,
+      user: {
+        id: user?.id.toString(),
+        name: user?.name,
+        email: user?.email,
+        created_at: user?.createdAt,
+        update_at: user?.updatedAt,
+      },
     }
   }
 }

@@ -37,7 +37,7 @@ export class AuthenticateUseCase {
     if (!isPasswordValid) {
       throw new UnauthorizedException('User credentials do not match')
     }
-    const accessToken = this.jwt.sign({ sub: user.id })
+    const accessToken = this.jwt.sign({ sub: user.id.toString() })
 
     return { user, accessToken }
   }
