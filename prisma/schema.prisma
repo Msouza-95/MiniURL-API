@@ -52,5 +52,5 @@ model Click {
 
   url Url? @relation(fields: [urlId], references: [id])
 
-  @@map("Click")
+  @@map("clicks")
 }

@@ -32,4 +32,16 @@ export class ViewUrlMapper {
       },
     }
   }
+
+  static toArraUrlView(url: Url) {
+    return {
+      id: url.id.toString(),
+      click_total: url.clickCount,
+      created_at: url.createdAt,
+      updated_at: url.updatedAt,
+      mini_url: url.miniUrl,
+      orignal_url: url.originalUrl,
+      user_id: url.userId?.toString(),
+    }
+  }
 }

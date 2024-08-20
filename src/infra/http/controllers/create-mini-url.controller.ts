@@ -24,7 +24,7 @@ export class CreateMiniUrlController {
   ) {}
 
   @Post()
-  @HttpCode(200)
+  @HttpCode(201)
   async handle(
     @Body(bodyValidationPipe) body: CreateMiniUrlBody,
     @Req() request: Request,

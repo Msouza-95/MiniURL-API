@@ -1,3 +1,4 @@
+import { IUrlAndUserDto } from '@/domain/url/application/dto/delete-url-by-user'
 import { UrlRepository } from '@/domain/url/application/repositories/url-repository'
 import { Url } from '@/domain/url/enterprise/entities/url'
 
@@ -28,5 +29,20 @@ export class InMemoryUrlRepository implements UrlRepository {
     }
 
     return url
+  }
+
+  async findByUserId(userId: string): Promise<Url[]> {
+    const urls = this.urls.filter((item) => item.userId?.toString() === userId)
+
+    return urls
+  }
+
+  async deleteByUserIdLogic({ userId, urlId }: IUrlAndUserDto): Promise<void> {
+    const newArray = this.urls.filter(
+      (item) =>
+        item.userId?.toString() !== userId || item.id.toString() !== urlId,
+    )
+
+    this.urls = newArray
   }
 }
