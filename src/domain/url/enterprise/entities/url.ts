@@ -15,8 +15,12 @@ interface IUrlProps {
 }
 
 export class Url extends Entity<IUrlProps> {
-  get clickCount() {
+  get clickCount(): number {
     return this.props.clickCount
+  }
+
+  set clickCount(n: number) {
+    this.props.clickCount = n
   }
 
   get miniUrl(): string | undefined {

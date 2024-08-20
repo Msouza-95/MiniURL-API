@@ -6,6 +6,7 @@ export abstract class UrlRepository {
   abstract findById(id: string): Promise<Url | null>
   abstract findByMiniUrl(miniUrl: string): Promise<Url | null>
   abstract findByUserId(userId: string): Promise<Url[]>
+  abstract findByWithoutUser(): Promise<Url[]>
   abstract findByUserIdAndId({
     userId,
     urlId,

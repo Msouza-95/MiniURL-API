@@ -21,6 +21,19 @@ export class InMemoryUrlRepository implements UrlRepository {
     return url
   }
 
+  async findByWithoutUser(): Promise<Url[]> {
+    const urls: Url[] = []
+    const url = this.urls.find((item) => item.userId === null)
+
+    if (!url) {
+      return urls
+    }
+
+    urls.push(url)
+
+    return urls
+  }
+
   async findByMiniUrl(miniUrl: string): Promise<Url | null> {
     const url = this.urls.find((item) => item.miniUrl!.toString() === miniUrl)
 

@@ -4,6 +4,8 @@ import { UserRepository } from '@/domain/user/application/repositories/user-repo
 import { PrismaUserRepository } from './prisma/repositories/prisma-user-repository'
 import { UrlRepository } from '@/domain/url/application/repositories/url-repository'
 import { PrismaUrlRepository } from './prisma/repositories/prisma-url-repository'
+import { ClickRepository } from '@/domain/url/application/repositories/click-repository'
+import { PrismaClickRepository } from './prisma/repositories/prisma-click-repository'
 
 @Module({
   providers: [
@@ -16,8 +18,12 @@ import { PrismaUrlRepository } from './prisma/repositories/prisma-url-repository
       provide: UrlRepository,
       useClass: PrismaUrlRepository,
     },
+    {
+      provide: ClickRepository,
+      useClass: PrismaClickRepository,
+    },
   ],
 
-  exports: [PrismaService, UserRepository, UrlRepository],
+  exports: [PrismaService, UserRepository, UrlRepository, ClickRepository],
 })
 export class DatabaseModule {}

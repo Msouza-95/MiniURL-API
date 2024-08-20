@@ -1,4 +1,3 @@
-import { User } from '@/domain/user/enterprise/entities/user'
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { Url } from '../../enterprise/entities/url'
 import { UserRepository } from '@/domain/user/application/repositories/user-repository'

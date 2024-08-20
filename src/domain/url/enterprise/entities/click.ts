@@ -3,8 +3,8 @@ import { Optional } from '@/core/types/optional'
 import { Entity } from 'src/core/entities/entity'
 
 interface IClickProps {
-  urlId: UniqueEntityID
-  userId: UniqueEntityID
+  urlId?: UniqueEntityID
+  userId?: UniqueEntityID
   createdAt: Date
 }
 

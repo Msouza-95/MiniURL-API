@@ -14,6 +14,10 @@ import { DeleteUrlByUserUseCase } from '@/domain/url/application/use-cases/delet
 import { DeleteUrlByUserController } from './controllers/delete-url-by-user.controller'
 import { UpdateOriginalUrlByUserUseCase } from '@/domain/url/application/use-cases/update-origin-url-by-user'
 import { UpdateOriginalUrlByUserController } from './controllers/update-original-url-by-user.controller'
+import { AccessMiniUrlController } from './controllers/access-mini-url.controller'
+import { AccessMiniUrlUseCase } from '@/domain/url/application/use-cases/access-mini-url'
+import { ListUrlWithoutUserController } from './controllers/list-url-wthout-user.controller'
+import { ListUrlWithoutUserUseCase } from '@/domain/url/application/use-cases/list-url-without-user'
 
 @Module({
   imports: [DatabaseModule],
@@ -24,6 +28,8 @@ import { UpdateOriginalUrlByUserController } from './controllers/update-original
     ListUrlByUserController,
     DeleteUrlByUserController,
     UpdateOriginalUrlByUserController,
+    AccessMiniUrlController,
+    ListUrlWithoutUserController,
   ],
   providers: [
     CreateAccountUseCase,
@@ -33,6 +39,8 @@ import { UpdateOriginalUrlByUserController } from './controllers/update-original
     ListUrlByUserUseCase,
     DeleteUrlByUserUseCase,
     UpdateOriginalUrlByUserUseCase,
+    AccessMiniUrlUseCase,
+    ListUrlWithoutUserUseCase,
   ],
 })
 export class HttpModule {}

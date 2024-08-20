@@ -47,6 +47,17 @@ export class PrismaUrlRepository implements UrlRepository {
     return urls.map(PrismaUrlMapper.toDomain)
   }
 
+  async findByWithoutUser(): Promise<Url[]> {
+    const urls = await this.prisma.url.findMany({
+      where: { userId: null, deletedAt: null },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+
+    return urls.map(PrismaUrlMapper.toDomain)
+  }
+
   async save(url: Url): Promise<Url> {
     const result = await this.prisma.url.update({
       where: { id: url.id.toString() },
